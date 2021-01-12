@@ -4,7 +4,7 @@ This tool is an automated hyper-parameter search algorithm that uses meta-learni
 ![Demo](https://github.com/DataSystemsGroupUT/CSmartML/blob/master/img/cSmartML.png?raw=true)
 
 # Setup
-Built to run in a Vagrant Box, you will need Vagrant set up for this. Installataion [here] (https://www.vagrantup.com/downloads.html)
+Built to run in a Vagrant Box, you will need Vagrant set up for this. Installation [here](https://www.vagrantup.com/downloads.html)
 The interactive component runs on NodeJS, so a simple npm i, should install the packages required. Vagrant installs Python dependencies automatically on start.
 
 To start the two servers:
