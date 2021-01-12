@@ -1,0 +1,23 @@
+Datasets,Default-Baseline NMI,RandomSearch-Baseline NMI,cSmartML NMI,GridSearch-Baseline NMI,Default-Baseline Algorithm,RandomSearch-Baseline Algorithm,RandomSearch-Baseline Metrics,cSmartML Algorithm,cSmartML Metrics
+iris,0.7701,0.723478697334267,0.805693691215335,0.770900473791457,Birch,OPTICS,"[['dunns_index', 1], ['scott_symons', -1], ['xie_beni', -1]]",Birch,"[['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+glass,0.468,0.450530349700506,0.430934904370749,0.454195601603723,MeanShift,kmeans,"[['ratkowsky_lance', 1], ['davies_bouldin', -1], ['xie_beni', -1]]",Spectral,"[['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+tae,0.1065,0.0353022829672576,0.198136132709199,0.106474642545671,AP,BIRCH,"[['dunns_index', 1], ['point_biserial', 1], ['ratkowsky_lance', 1]]",Spectral,"[['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+haberman,0.0604,0.0632729661750369,0.177784137098404,0.0825366794986509,Birch,BIRCH,"[['modified_hubert_t', 1], ['point_biserial', 1], ['xie_beni', -1]]",MeanShift,"[['s_dbw', -1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+iono,0.2522,0.232997387964868,0.273750005225672,0.122366452263511,Spectral,AG,"[['calinski_harabasz_score', 1], ['modified_hubert_t', 1], ['c_index', -1]]",Birch,"[['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+thy,0.5821,0.494516046705661,0.582143574745755,0.439917081272138,Birch,kmeans,"[['dunns_index', 1], ['xie_beni', -1], ['davies_bouldin', -1]]",Birch,"[['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+arrhythmia,0.295,0.328367359684377,0.427994890911618,0.294952458383608,AP,kmeans,"[['dunns_index', 1], ['ratkowsky_lance', 1], ['point_biserial', 1]]",MeanShift,"[['s_dbw', -1], ['i_index', 1], ['banfeld_raferty', -1]]"
+ecoli,0.6192,0.503873305640404,0.646034285062982,0.628390773431201,KMeans,MeanShift,"[['ray_turi', -1], ['c_index', -1], ['modified_hubert_t', 1]]",Birch,"[['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+segment,0.5125,0.353607677126633,0.597888595654209,0.591565564818329,KMeans,Birch,"[['point_biserial', 1], ['davies_bouldin', -1], ['i_index', 1]]",AG,"[['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+zoo,0.8202,0.85010605222093,0.73063319620322,0.832282491738105,Spectral,Spectral,"[['modified_hubert_t', 1], ['i_index', 1], ['pbm_index', 1]]",DB,"[['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+,,,,,,,,,
+,,,,,,,,,
+2d-3c-no123,0.9376,0.807680750622368,0.983991938822678,0.887335593216093,Birch,DBSCAN,"[['calinski_harabasz_score', 1], ['silhouette', 1], ['modified_hubert_t', 1]]",Birch,"[['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+3-spiral,0.7033,0.411756136973042,0.544149493235482,0.530406225721008,Spectral,Kmeans,"[['banfeld_raferty', -1], ['c_index', -1], ['dunns_index', 1]]",Spectral,"[['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+3MC,0.8563,0.769355631173397,0.783051931519779,0.978534691944833,DBSCAN,Birch,"[['silhouette', 1], ['wemmert_gancarski', 1], ['g_plus_index', -1]]",MeanShift,"[['i_index', 1], ['scott_symons', -1], ['banfeld_raferty', -1]]"
+R15,0.8783,0.938318512047841,0.986416729366931,0.953503030438946,DBSCAN,Spectral,"[['wemmert_gancarski', 1], ['scott_symons', -1], ['i_index', 1]]",AG,"[['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+aggregation,0.9436,0.872390631817373,0.769957852391066,0.553430012916642,Spectral,Kmeans,"[['mcclain_rao', -1], ['i_index', 1], ['silhouette', 1]]",Birch,"[['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+compound,0.8061,0.718525121216569,0.890676025378571,0.859483895471119,Birch,Kmeans,"[['pbm_index', 1], ['ratkowsky_lance', 1], ['wemmert_gancarski', 1]]",Spectral,"[['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+aml28,0.9442,0.280021024497284,0.896600964806416,0.29515291920401,MeanShift,Spectral,"[['scott_symons', -1], ['point_biserial', 1], ['i_index', 1]]",Birch,"[['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+ds2c2sc13,0.766,0.601275575899174,0.767157818748981,0.81118948892783,Kmeans,Birch,"[['modified_hubert_t', 1], ['s_dbw', -1], ['mcclain_rao', -1]]",MeanShift,"[['s_dbw', -1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+jain,0.5052,0.263174698531032,0.482317723208149,0.475192636759871,AG,AP,"[['mcclain_rao', -1], ['c_index', -1], ['scott_symons', -1]]",Birch,"[['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
+lsun,1.0,1.0,0.90463501360064,0.671935361958238,DBSCAN,DBSCAN,"[['xie_beni', -1], ['calinski_harabasz_score', 1], ['modified_hubert_t', 1]]",DBSCAN,"[['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]"
