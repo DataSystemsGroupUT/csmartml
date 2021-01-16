@@ -12,3 +12,6 @@ source venv/bin/activate
 pip3 install -r /vagrant/server/dependencies.txt
 
 # node packages
+curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+sudo apt-get install -y nodejs
+cd /vagrant/interface && npm install
