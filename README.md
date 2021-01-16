@@ -1,9 +1,15 @@
-# Automated Clustering
-This tool is an automated hyper-parameter search algorithm that uses meta-learning and evolutionary algorithms to find the best configurations for clustering a given dataset. Currently limited to numerical datasets, it works for all eight clustering algorithms available on [SKlearn](https://scikit-learn.org/stable/modules/clustering.html) and uses methods and parallelization from [DEAP](https://deap.readthedocs.io/en/master/index.html) to return the list of top configurations found, given parameters defined in the next section.
+# cSmartML
+cSmartML is an automated clustering tool that uses meta-learning and evolutionary algorithms to find the best configurations for clustering a given dataset. Currently limited to numerical datasets, it works for all eight clustering algorithms available on [SKlearn](https://scikit-learn.org/stable/modules/clustering.html) and uses parallelization and tools from [DEAP](https://deap.readthedocs.io/en/master/index.html) to return the list of top configurations found. Evaluation metrics are multi-objective and the best configurations selected with the NSGA-II pareto scheme.
 
 ![Demo](https://github.com/DataSystemsGroupUT/CSmartML/blob/master/img/cSmartML.png?raw=true)
 
 # Setup
+
+## Download cSmartML
+```
+git clone https://github.com/DataSystemsGroupUT/CSmartML.git
+```
+
 Built to run in a Vagrant Box, you will need Vagrant set up for this. Installation [here](https://www.vagrantup.com/downloads.html)
 The interactive component runs on NodeJS, so a simple npm i, should install the packages required. Vagrant installs Python dependencies automatically on start.
 
