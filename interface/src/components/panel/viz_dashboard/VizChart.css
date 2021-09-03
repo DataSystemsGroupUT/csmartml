@@ -1,0 +1,34 @@
+@import 'https://code.highcharts.com/css/highcharts.css';
+
+.highcharts-boxplot-series .highcharts-point {
+    stroke-width: 2px;
+}
+.highcharts-boxplot-box {
+    fill: transparent;
+    stroke-dasharray: 4, 2;
+}
+.highcharts-boxplot-median {
+    stroke: #7D4CDB;
+    stroke-width: 3px;
+}
+.highcharts-boxplot-stem {
+    stroke: #7D4CDB;
+    stroke-dasharray: 1, 2;
+    stroke-width: 1px;
+}
+.highcharts-boxplot-whisker {
+    stroke: #7D4CDB;
+    stroke-width: 3px;
+}
+.highcharts-plot-line-label tspan {
+    fill: #7D4CDB;
+}
+
+.highcharts-background {
+    fill: transparent;
+}
+
+.highcharts-root, .highcharts-axis-labels{
+    font-family: "Rubik" !important;
+    font-weight: bold;
+}
