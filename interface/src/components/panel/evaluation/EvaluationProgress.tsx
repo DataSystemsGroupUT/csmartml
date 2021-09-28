@@ -16,6 +16,8 @@ export interface EvaluationProgressState{
     progress: number
 }
 
+
+
 export default class EvaluationProgress extends React.Component<EvaluationProgressProps, EvaluationProgressState>{
 
     constructor(props : EvaluationProgressProps) {
@@ -30,14 +32,14 @@ export default class EvaluationProgress extends React.Component<EvaluationProgre
     }
 
     componentDidUpdate(prevProps: EvaluationProgressProps, prevState: EvaluationProgressState) {
-        if(prevProps.timeBudget != this.props.timeBudget){
+        if((prevProps.timeBudget != this.props.timeBudget)){
             this.setTime(this.props.timeBudget)
         }
 
         if((this.props.taskStatus == true) && (this.props.taskStatus != prevProps.taskStatus)){
-            this.setState({status: "backward"})
             const interval = parseInt(this.state.timeBudget) * 10
             setInterval(this.updateProgress,interval);
+            this.setState({status: "backward"})
         }
     }
 
