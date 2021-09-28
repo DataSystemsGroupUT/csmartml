@@ -7,6 +7,7 @@ import EvaluationViz from "./EvaluationViz";
 export interface EvaluationPanelProps{
     timeBudget: string
     taskStatus: boolean
+    metaLearning: boolean
     taskLabel: string
     algorithm: string
     metric: string
