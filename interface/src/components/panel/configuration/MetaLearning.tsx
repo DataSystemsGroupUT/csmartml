@@ -5,7 +5,15 @@ import ReactTooltip from 'react-tooltip';
 import { Configure, Close } from 'grommet-icons';
 import BottomPadBox from "../../custom-grommet/BottomPadBox";
 
-import { ALGORITHMS, SINGLE_METRICS, MULTI_OBJ_METRICS, EVALUATION_TYPES} from "../../../constants/TaskConfiguration";
+import {
+    ALGORITHMS,
+    SINGLE_METRICS,
+    MULTI_OBJ_METRICS,
+    EVALUATION_TYPES,
+    FORMATTED_CVI,
+    LABELED_ALGORITHMS_DICT,
+    LABELED_CVI_DICT
+} from "../../../constants/TaskConfiguration";
 
 interface MetaLearningProps {
 
@@ -68,16 +76,16 @@ class MetaLearning extends React.Component<MetaLearningProps, MetaLearningState>
         this.setState({evaluation: metric_type})
         if(metric_type == "single"){
             this.setState({metric_list: SINGLE_METRICS})
-            this.props.setMetric("cvi-1")
+            // this.props.setMetric("cvi-1")
         }else{
             this.setState({metric_list: MULTI_OBJ_METRICS})
-            this.props.setMetric("cvi-102")
+            // this.props.setMetric("cvi-102")
         }
 
     }
 
     onSelectMetric = (metric) => {
-        this.props.setMetric(metric.value)
+       this.props.setMetric(metric.value)
     }
 
     onSelectAlgorithm = (algorithm) => {
