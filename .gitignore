@@ -1,10 +1,14 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 server/main/csmartml/__pycache__/
+*.pyc
 
 .vagrant/
 experiments/
 interface/.idea/
 
+
+# MAC DS Store
 .DS_Store
+
 .dockerignore
