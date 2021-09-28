@@ -110,8 +110,8 @@ class App extends React.Component<{}, AppState> {
             taskStatus: false,
             metaLearning: true,
             taskLabel: "Not Started",
-            algorithm: "db",
-            metric: "cvi-102",
+            algorithm: "DBSCAN",
+            metric: "I-INDEX & MODIFIED-HUBERT-T & BANFELD-RAFERTY",
             partitions: [],
             partition: "None",
             partitionData: [],
@@ -188,7 +188,9 @@ class App extends React.Component<{}, AppState> {
 
         if((prevState.datasetName != this.state.datasetName) && (prevState.datasetName == "None")){
            this.updateViewTaskViz()
+            this.updateViewTaskRun()
         }
+
     }
 
     updateViewTaskViz = () => {
@@ -379,7 +381,7 @@ class App extends React.Component<{}, AppState> {
 
     startTaskRun = () => {
         // Load Evaluation panel
-        this.updateViewTaskRun();
+        // this.updateViewTaskRun()
 
         // Get payload for Python Server
         const { metaLearning, algorithm, metric, uploadedData, uploadedCSV, resultPreference, datasetName, timeBudget } = this.state
@@ -393,9 +395,11 @@ class App extends React.Component<{}, AppState> {
         payload["dataset"] = datasetName
         payload["time"] = timeBudget
         payload["result"] = resultPreference
-        // this.setState({taskStatus: true})
-        // this.setTaskLabel("Getting recommended algorithm...");
-        // const payload = {"dataset": this.state.datasetName, "time": this.state.timeBudget}
+
+        this.setState({taskStatus: true})
+
+        // // this.setTaskLabel("Getting recommended algorithm...");
+        // // const payload = {"dataset": this.state.datasetName, "time": this.state.timeBudget}
         testFunction(payload).then(result => {
             // console.log(result)
             this.setState({
@@ -472,10 +476,6 @@ class App extends React.Component<{}, AppState> {
                  // let currentMetrics = this.state.currentMetrics
                  //@ts-ignore
                  let dim = parseInt(newMetric.length)
-
-                 console.log("Unchecked")
-                 console.log("Current DIM: ", dim)
-                 console.log("Current Metrics: ", newMetric)
 
 
                  if(dim == 1){
