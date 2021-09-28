@@ -19,12 +19,12 @@ PARAMETERS = {
 		'bench': []
 	},
 	'ap': {
-		'prime': ['damping'],
-		'bench': []
+		'prime': ['damping'], #preference parameter applicable, but range?
+		'bench': ['max_iter']
 	},
 	'spectral': {
 		'prime': ['n_clusters'],
-		'bench': []
+		'bench': ['n_init', 'eigen_solver', 'affinity']
 	},
 	'birch': {
 		'prime': ['threshold', 'branching_factor', 'n_clusters'],

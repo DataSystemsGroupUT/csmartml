@@ -68,7 +68,9 @@ class AP:
 		self.sel_params = params
 		self.data_len = len(data)
 		self.all_params = {
-			'damping': random.uniform(0.5, 1)
+			'damping': random.uniform(0.5, 1),
+			'max_iter': random.choice(list(range(150, 215))),
+			'convergence_iter': random.choice(list(range(10, 25))),
 		}
 
 	def config(self):
@@ -85,13 +87,24 @@ class Spectral:
 		self.sel_params = params
 		self.data_len = len(data)
 		self.all_params = {
-			'n_clusters': random.randint(2, int(self.data_len / 4))
+			'n_clusters': random.randint(2, int(self.data_len / 4)),
+			'n_init': random.choice(list(range(10, 25))),
+			'affinity': random.choice(['nearest_neighbors', 'rbf']),
+			'eigen_solver': random.choice(['arpack', 'lobpcg', 'amg']),
 		}
 
 	def config(self):
 		partition = dict()
 		for params in self.sel_params:
 			partition[params] = self.all_params[params]
+
+		if "eigen_solver" in self.sel_params:
+			partition["n_components"] = random.randint(1, 11)
+
+		if "affinity" in self.sel_params and partition["affinity"] == 'nearest_neighbors':
+			partition["n_neighbors"] = random.randint(2, 5)
+		else:
+			partition["gamma"] = random.uniform(0.5, 2.0)
 
 		return SpectralClustering(**partition)
 

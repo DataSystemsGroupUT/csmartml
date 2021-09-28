@@ -1,0 +1,10 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+server/main/csmartml/__pycache__/
+
+.vagrant/
+experiments/
+interface/.idea/
+
+.DS_Store
+.dockerignore

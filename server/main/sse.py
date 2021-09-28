@@ -27,7 +27,12 @@ def initialize_app():
 	def publish(data, type):
 		sse.publish(data, type=type)
 		# sse.publish({"message": "Hello World!"}, type='message')
-		return "Message sent!"
+		return "Message sent!"\
+
+	@app.route('/disable', methods=["POST"])
+	def disable():
+		task_data = request.get_json(force=True)
+		print(task_data)
 
 	@app.route("/taskrun", methods=["POST"])
 	def taskrun():
@@ -69,16 +74,18 @@ def initialize_app():
 
 		i = 0
 		configurations = {}
+		configuration_values = {}
 		for pop in pops:
 			cluster = pop[0].fit(data)
 			configurations["CONFIG-{}".format(i)] = cluster.labels_.tolist()
+			configuration_values["CONFIG-{}".format(i)] = str(pop[0])
 			i += 1
 
 		pca_2d = PCA(n_components=2).fit(data).transform(data)
 
 		# configurations = OrderedDict(sorted(configurations.items()))
 
-		return {"clusters": configurations, "pca": pca_2d.tolist(), "data": data.to_numpy().tolist()}
+		return {"clusters": configurations, "pca": pca_2d.tolist(), "data": data.to_numpy().tolist(), "configs": configuration_values}
 
 	@app.route('/modify')
 	def modify():
@@ -97,7 +104,7 @@ def startapp():
 	app = initialize_app()
 	app.run(
 		host="0.0.0.0",
-		port="5000",
+		port="5555",
 		debug=True
 	)
 

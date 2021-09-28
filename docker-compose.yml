@@ -1,0 +1,23 @@
+services:
+  pyapp:
+    image: pyapp
+    ports:
+    - 5555:5555
+    networks:
+      - somonet
+  viz:
+    image: viz
+    ports:
+    - 80:80
+    networks:
+      - somonet
+  redis:
+    image: redis:latest
+    ports:
+    - 6379:6379
+    networks:
+      - somonet
+networks:
+    somonet:
+      driver: bridge
+  
