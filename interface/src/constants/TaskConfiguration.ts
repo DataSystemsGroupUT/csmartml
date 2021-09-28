@@ -21,6 +21,26 @@ export const ALGORITHMS = [
     {label: "Spectral Clustering", value: "spectral"}
 ]
 
+export const LABELED_ALGORITHMS_DICT = {
+    "ag": "Agglomerated Clustering",
+    "ap": "Affinity Propagation",
+    "birch": "Birch",
+    "db": "DBSCAN",
+    "kmeans": "KMEANS",
+    "meanshift": "MeanShift",
+    "optics": "OPTICS",
+    "spectral": "Spectral Clustering"
+}
+
+export const LABELED_CVI_DICT = {
+     "cvi-100": "SDBW & I-Index & Banfeld-Raferty",
+    "cvi-101": "SDBW & Modified Hubert T & Banfeld-Raferty",
+    "cvi-102": "I-Index & Modified Hubert T & Banfeld-Raferty",
+    "cvi-103": "McClain Rao & Dunns Index & Banfeld-Raferty",
+    "cvi-104": "I-Index & Scott Symons & Banfeld-Raferty",
+    "cvi-105": "I-Index & Modified Hubert T & Banfeld-Raferty"
+}
+
 export const SINGLE_METRICS = [
     {label: "Banfeld-Raferty", value: "cvi-1"},
     {label: "Davies Bouldin", value: "cvi-8"},
