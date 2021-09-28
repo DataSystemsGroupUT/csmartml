@@ -29,12 +29,6 @@ export default class TimeBudget extends React.Component<TimeBudgetProps, {}>{
                     value={ timeBudget }
                     onChange = {event => this.setTimeBudget(event.target.value)}
                 />
-                {/*<Select*/}
-                {/*    options={['10', '60', '300', '600', '1800', '3600']}*/}
-                {/*    value={ timeBudget }*/}
-                {/*    placeholder={"Tap to choose"}*/}
-                {/*    onChange={({ option }) => this.setTimeBudget(option)}*/}
-                {/*/>*/}
             </ParamBox>
         );
     }
