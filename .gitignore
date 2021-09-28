@@ -3,7 +3,9 @@ __pycache__/
 server/main/csmartml/__pycache__/
 *.pyc
 
-.vagrant/
+.vagrant
+.idea
+
 experiments/
 interface/.idea/
 
