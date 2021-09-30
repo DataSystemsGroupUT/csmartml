@@ -10,24 +10,14 @@ cSmartML is an automated clustering tool that uses meta-learning and evolutionar
 git clone https://github.com/DataSystemsGroupUT/CSmartML.git
 ```
 
-Built to run in a Vagrant Box, you will need Vagrant set up for this. Installation [here](https://www.vagrantup.com/downloads.html)
-The interactive component runs on NodeJS, so a simple npm i, should install the packages required. Vagrant installs Python dependencies automatically on start.
 
-To start the two servers:
-
-## (1) Flask Server:
+## Run Application
+Built to run in Docker container, make sure you have Docker installed, else head [here](https://docs.docker.com/get-docker/)
+In the home directory, run the bash file ```go.sh```
 ```
-(Navigate to /server/)
-python sse.py
+bash go.sh
 ```
-
-## (2) NodeJS Server:
-
-```
-(Navigate to /interface/)
-npm i
-yarn start
-```
+After successful initialization up of App Container visit ```localhost:80``` to access the interface
 
 # Datasets
 
