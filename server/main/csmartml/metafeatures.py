@@ -2,9 +2,7 @@ import numpy as np
 import pandas as pd
 import glob
 import warnings
-import scipy
-import sklearn
-# import patsy
+import sys
 from scipy.sparse import csr_matrix
 from scipy.stats import kurtosis, skew, zscore
 from sklearn.preprocessing import LabelEncoder
@@ -335,11 +333,11 @@ class Meta:
         
 
     def extract_metafeatures(self, file, meta_type, ds=None):
-    
-        warnings.filterwarnings("ignore")
+
+        # warnings.filterwarnings("ignore")
 
         if ds is None:
-            data = pd.read_csv("./csmartml/datasets/{}.csv".format(file),
+            data = pd.read_csv("./main/csmartml/datasets/{}.csv".format(file),
                             index_col=None,
                             header=0,
                             na_values='?')
@@ -366,8 +364,11 @@ class Meta:
         categorical_cols = list(cols.difference(num_cols))
 
         # data imputation for categorical features
-        categ_data = data[categorical_cols]
-        data[categorical_cols] = categ_data.fillna(categ_data.mode().iloc[0])
+        # categ_data = data[categorical_cols]
+        # print("Categ---", file=sys.stdout)
+        # print(categ_data, flush=True)
+        # data[categorical_cols] = categ_data.fillna(categ_data.mode().iloc[0])
+        print(f"Categorical Columns: {categorical_cols}", flush=True)
         metafeatures1 = self.meta_features(data, num_cols, categorical_cols)
         
         # Numerical Features Statistics
