@@ -26,7 +26,7 @@ class CSmartML:
 
 		# Load benchmark dataset or use uploaded dataset
 		if dataset is None:
-			self.data = pd.read_csv("./csmartml/datasets/{}.csv".format(filename)).iloc[:, :-1]
+			self.data = pd.read_csv("./main/csmartml/datasets/{}.csv".format(filename)).iloc[:, :-1]
 		else:
 			self.data = dataset
 
