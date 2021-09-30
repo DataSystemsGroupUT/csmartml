@@ -14,7 +14,7 @@ import redis
 
 def initialize_app():
 	app = Flask(__name__)
-	app.config["REDIS_URL"] = "redis://localhost:6379"
+	app.config["REDIS_URL"] = "redis://obo:6379"
 	app.register_blueprint(sse, url_prefix='/stream')
 	CORS(app)
 
@@ -54,8 +54,8 @@ def initialize_app():
 			data = data.iloc[:-1]
 			uploadedData = data
 		else:
-			file = "./csmartml/datasets/{}.csv".format(dataset)
-			data = pd.read_csv(file, header=None, na_values='?')
+			file = "main/csmartml/datasets/{}.csv".format(dataset)
+			data = pd.read_csv(file, header=None, index_col=None, na_values='?')
 			data = data.iloc[:, :-1]
 
 		# Initialize smart clustering framework
@@ -93,7 +93,8 @@ def initialize_app():
 
 	@app.route('/redis')
 	def reorder():
-		is_connected = redis.from_url("redis://localhost:6379")
+		is_connected = redis.from_url("redis://obo:6379")
+		# is_connected = redis.from_url("redis://localhost:6379")
 		name = is_connected.acl_users()
 		return jsonify({"Client": name})
 
