@@ -25,7 +25,7 @@ export function getStaticCSVFile (dataset: string){
 }
 
 const axiosInstance = axios.create({
-    baseURL: `http://localhost:5555/`,
+    baseURL: `http://0.0.0.0:5555/`,
     // timeout: 1000,
     headers: {
         'Access-Control-Allow-Origin': '*'
