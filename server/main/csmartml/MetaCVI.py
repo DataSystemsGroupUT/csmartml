@@ -66,7 +66,7 @@ class Meta_CVI:
     def search(self, algorithm ="kmeans"):
 
         # 1 - Get other metafeatures from knowledge-base & their CVI combinations
-        df_meta_db = pd.read_csv("./csmartml/metafeatures.csv")
+        df_meta_db = pd.read_csv("./main/csmartml/metafeatures.csv")
 
         df_meta_db = df_meta_db[df_meta_db.dataset != self.file]
 
@@ -78,7 +78,7 @@ class Meta_CVI:
 
         filename = "multi_" + algorithm
         combinations = []
-        with open('./csmartml/new-pareto/' + filename + '.tsv') as tsvfile:
+        with open('./main/csmartml/new-pareto/' + filename + '.tsv') as tsvfile:
             reader = csv.DictReader(tsvfile, delimiter='\t', fieldnames=['dataset', 'cvi', 'nmi'])
             for row in reader:
                 combinations.append(row)
