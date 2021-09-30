@@ -23,7 +23,7 @@ class Algorithm:
     def search(self, algorithm="kmeans"):
 
         # Get other meta-features from knowledge-base & their CVI combinations
-        df_meta_db = pd.read_csv("./csmartml/metafeatures.csv")
+        df_meta_db = pd.read_csv("./main/csmartml/metafeatures.csv")
         # ds_name = self.file.split(".")[1].split("/")[3] if self.data is None else self.file
         df_meta_db = df_meta_db[df_meta_db.dataset != self.file]
 
@@ -32,12 +32,12 @@ class Algorithm:
 
         filename = "multi_" + algorithm
         combinations = []
-        with open('./csmartml/new-pareto/' + filename + '.tsv') as tsvfile:
+        with open('./main/csmartml/new-pareto/' + filename + '.tsv') as tsvfile:
             reader = csv.DictReader(tsvfile, delimiter='\t', fieldnames=['dataset', 'cvi', 'nmi'])
             for row in reader:
                 combinations.append(row)
 
-        df_algorithms = pd.read_csv("./csmartml/algorithms.csv")
+        df_algorithms = pd.read_csv("./main/csmartml/algorithms.csv")
         df_algorithms['nmi'] = df_algorithms['nmi'].apply(pd.np.float64)
         df_algorithms['rank'] = df_algorithms.groupby('dataset')['nmi'].rank(ascending=False, axis=0, method='min')
         df_algorithms = df_algorithms.groupby('dataset').apply(lambda x: x.sort_values(['algorithm']))
