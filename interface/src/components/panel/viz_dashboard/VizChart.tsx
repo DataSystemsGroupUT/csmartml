@@ -3,6 +3,8 @@ import { Paragraph, Box, Select, Heading} from 'grommet';
 import {getStaticCSVFile, XDataSetSummary} from "../../../service/DataService";
 
 import { withHighcharts, HighchartsChart, Chart, XAxis, YAxis, Title, Subtitle, Legend, LineSeries, BoxPlotSeries } from 'react-jsx-highcharts';
+import { ParallelCoordinates } from "react-vis";
+
 import Highcharts from 'highcharts';
 
 // import HighchartsReact from 'highcharts-react-official';
@@ -157,7 +159,12 @@ class VizChart extends React.Component<VizChartProps, VizChartState>{
                         align={"center"}
                     >
                         <HighchartsChart>
-                            <Chart height={400} width={600} backgroundColor="transparent" inverted={true} />
+                            <Chart
+                                height={400}
+                                width={600}
+                                type={"spline"}
+                                backgroundColor="transparent"
+                                inverted={true} />
                             <Title>Feature Distribution</Title>
 
 
@@ -173,16 +180,19 @@ class VizChart extends React.Component<VizChartProps, VizChartState>{
                                 ]} />
                             </YAxis>
                         </HighchartsChart >
+
+
+
                     </Box>
 
                 </Box>
 
-                <Box pad="medium">
-                    <Heading level={4}> Dataset Summary </Heading>
-                    <Paragraph margin={"none"}> Number of Instances: {datasetSummary[0].n_instances} </Paragraph>
-                    <Paragraph margin={"none"}> Number of Features: {datasetSummary[0].n_features} </Paragraph>
-                    <Paragraph margin={"none"}> Classes / Clusters: {datasetSummary[0].n_classes} </Paragraph>
-                </Box>
+                {/*<Box pad="medium">*/}
+                {/*    <Heading level={4}> Dataset Summary </Heading>*/}
+                {/*    <Paragraph margin={"none"}> Number of Instances: {datasetSummary[0].n_instances} </Paragraph>*/}
+                {/*    <Paragraph margin={"none"}> Number of Features: {datasetSummary[0].n_features} </Paragraph>*/}
+                {/*    <Paragraph margin={"none"}> Classes / Clusters: {datasetSummary[0].n_classes} </Paragraph>*/}
+                {/*</Box>*/}
 
             </Box>
 

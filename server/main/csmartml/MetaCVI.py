@@ -18,7 +18,6 @@ class Meta_CVI:
         self.meta_type = meta_type
         self.data = data
 
-
     def extract_metafeature(self):
         mf = Meta(self.file)
         if self.data is None:
@@ -26,7 +25,7 @@ class Meta_CVI:
         else:
             return mf.extract_metafeatures(self.file, self.meta_type, self.data)
 
-
+    # Static method, format
     def stock(self, index):
         if index == 'iindex':
             return 'i_index'
@@ -35,6 +34,7 @@ class Meta_CVI:
         else:
             return index
 
+    # Static method, format
     def format_cvi(self, index):
         # Evaluation Labels
         eval_labels = {"baker_hubert_gamma": -1, "banfeld_raferty": -1, "davies_bouldin": -1, "dunns_index": 1,
@@ -65,28 +65,16 @@ class Meta_CVI:
 
     def search(self, algorithm ="kmeans"):
 
-        #1 - Get other metafeatures from knowledge-base & their CVI combinations
-        # df_meta_db = pd.read_csv("metafeatures-training.csv")
+        # 1 - Get other metafeatures from knowledge-base & their CVI combinations
         df_meta_db = pd.read_csv("./csmartml/metafeatures.csv")
 
-        # Remove 50 training datasets
-        # df_meta_db = df_meta_db.iloc[50::, :]
-        # print(df_meta_db.head())
-        #ds_name = self.file.split(".")[1].split("/")[3]
-        #df_meta_db = df_meta_db[df_meta_db.dataset != ds_name]
-        # ds_name = self.file.split(".")[1].split("/")[3] if self.data is None else self.file
         df_meta_db = df_meta_db[df_meta_db.dataset != self.file]
 
         df_meta_instance = self.extract_metafeature()
         df_meta_db = df_meta_db.append(df_meta_instance)
-        
-        #print(df_meta_db.tail())
-        # Remove 50 training datasets
-        #print(df_meta_db.iloc[0:5, :].dataset.values)
-        # df_meta_db = df_meta_db.loc[df_meta_db["dataset"] != "cure-t0-500n-3D-1S"]
 
-        ##  2 - Get known CVI combinations for datasets
-        ##  Select pareto CVI rankings by algorithm
+        # 2 - Get known CVI combinations for datasets
+        # Select pareto CVI rankings by algorithm
 
         filename = "multi_" + algorithm
         combinations = []
@@ -100,7 +88,7 @@ class Meta_CVI:
         df_combinations['rank'] = df_combinations.groupby('dataset')['nmi'].rank(ascending=False, axis=0)
         df_combinations = df_combinations.groupby('dataset').apply(lambda x: x.sort_values(['cvi']))
 
-        #3 - Compute Euclidean distance between instance and other metafeatures
+        # 3 - Compute Euclidean distance between instance and other metafeatures
         df_meta_db_val = df_meta_db.loc[:, df_meta_db.columns != 'dataset']
         distance_matrix = cdist(df_meta_db_val, df_meta_db_val, metric = 'euclidean')
         
@@ -108,25 +96,18 @@ class Meta_CVI:
         distances = np.trim_zeros(distance_matrix[instance_index])
         distances_sm = np.sort(distances)[0:5]
 
-        # print(distances_sm)
-
-        #4 - Get closest meta-features by 5-NN & merge rankings
+        # 4 - Get closest meta-features by 5-NN & merge rankings
         all_rank = []
         all_cvis = []
         for dist in distances_sm:
             index = np.where(distances == dist)
-            # print(index)
             ds = str(df_meta_db.iloc[index].dataset.values[0])
-            # print(ds)
-            # print(df_combinations.loc[df_combinations['dataset'] == (ds + '.csv')]['dataset'].values) # Remove later: Neighbor Dataset
             all_rank.append(df_combinations.loc[df_combinations['dataset'] == (ds)]['rank'].values)
 
             if len(all_cvis) == 0:
                 all_cvis = df_combinations.loc[df_combinations['dataset'] == (ds)]['cvi'].values
-
-       
         
-        #5 - Select and return best CVI combination by NMI Scores
+        # 5 - Select and return best CVI combination by NMI Scores
         values = []
         for rn in all_rank:
             if rn != []:
@@ -138,9 +119,6 @@ class Meta_CVI:
             fn_cvi = all_cvis[np.where(fn_rank == top_rank_index)][0]
             return self.format_cvi(fn_cvi)
         else:
-            #print("Can\'t recommend CVI. No correlation data for neighbors")
+            #  print("Can\'t recommend CVI. No correlation data for neighbors")
             # Default CVI combination
             return self.format_cvi(['SDBW', 'IIndex', 'Banfeld_Raferty'])
-
-# benz = CVIPro("cure-t0-500n-3D-1S.csv", "distance")
-# print(benz.nn_search())

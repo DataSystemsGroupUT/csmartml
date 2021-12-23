@@ -25,7 +25,7 @@ export function getStaticCSVFile (dataset: string){
 }
 
 const axiosInstance = axios.create({
-    baseURL: `http://localhost:5000/`,
+    baseURL: `http://localhost:5555/`,
     // timeout: 1000,
     headers: {
         'Access-Control-Allow-Origin': '*'
@@ -35,6 +35,16 @@ const axiosInstance = axios.create({
 
 export async function testFunction (data){
     const url = `/taskrun`;
+    const headers = {'Content-Type': 'application/json'};
+    const res = await axiosInstance.post(url, data, {headers});
+    if (res.status === 200) {
+        return res;
+    }
+    throw res;
+}
+
+export async function disable (data){
+    const url = `/disable`;
     const headers = {'Content-Type': 'application/json'};
     const res = await axiosInstance.post(url, data, {headers});
     if (res.status === 200) {

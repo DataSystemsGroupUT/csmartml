@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {Box, Clock, Header, Heading, Select, Button} from 'grommet';
-import { Save } from 'grommet-icons';
+import {Copy, Save} from 'grommet-icons';
 import { withHighcharts, HighchartsChart, Chart, XAxis, YAxis, ScatterSeries } from 'react-jsx-highcharts';
 import Highcharts from 'highcharts';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 
 import addHighchartsMore from 'highcharts/highcharts-more';
@@ -18,6 +19,7 @@ export interface EvaluationVizProps {
 
     configuration: string
     configurations: {}
+    results: {}
     pcaData: []
     rawData: []
 }
@@ -25,8 +27,10 @@ export interface EvaluationVizProps {
 export interface EvaluationVizState{
 
     configuration: string
+    configuration_values: string
     configuration_names: any []
     selected_configuration: {}
+    copied: boolean
 
 }
 
@@ -38,7 +42,9 @@ class EvaluationViz extends React.Component<EvaluationVizProps, EvaluationVizSta
         this.state = {
             configuration: this.props.configuration,
             configuration_names: Object.keys(this.props.configurations),
-            selected_configuration: {}
+            selected_configuration: {},
+            configuration_values: "",
+            copied: false
         }
     }
 
@@ -56,6 +62,7 @@ class EvaluationViz extends React.Component<EvaluationVizProps, EvaluationVizSta
 
     onSelectConfiguration = async(configuration: string) => {
         this.setState({configuration: configuration})
+        this.setState({configuration_values: this.props.results[configuration]})
         this.parseClusteredJSON(this.props.configurations[configuration], this.props.pcaData)
     }
 
@@ -131,7 +138,7 @@ class EvaluationViz extends React.Component<EvaluationVizProps, EvaluationVizSta
 
 
     render() {
-        const { configuration, configuration_names, selected_configuration } = this.state
+        const { configuration, configuration_names, selected_configuration, configuration_values } = this.state
 
 
         const scatter_series = []
@@ -171,6 +178,12 @@ class EvaluationViz extends React.Component<EvaluationVizProps, EvaluationVizSta
                                 label='Labeled Dataset'
                                 onClick={this.saveClusteredData}
                                 href='#' />
+
+                                <CopyToClipboard text={this.state.configuration_values}
+                          onCopy={() => this.setState({copied: true})}>
+                          <Button icon={<Copy />} />
+                        </CopyToClipboard>
+
                     </Header>
                     {/*</Header>*/}
                     {/*<Box*/}
@@ -189,7 +202,7 @@ class EvaluationViz extends React.Component<EvaluationVizProps, EvaluationVizSta
                         align={"stretch"}
                     >
                         <HighchartsChart>
-                            <Chart height={300} backgroundColor="transparent" />
+                            <Chart height={300} width={500} backgroundColor="transparent" />
 
 
                             <XAxis>
@@ -205,6 +218,9 @@ class EvaluationViz extends React.Component<EvaluationVizProps, EvaluationVizSta
                             </YAxis>
                         </HighchartsChart >
                     </Box>
+
+                    {/* Display Configuration Values */}
+                    {/*<Heading level={4}> {configuration_values} </Heading>*/}
 
                 </Box>
 

@@ -16,6 +16,7 @@ from .HyperPartitions import *
 from .GeneticMethods import *
 
 
+
 class CSmartML:
 	def __init__(self, filename, population, time_budget, publish, meta_cvi=False, algorithm=None, cvi=None, dataset=None, result="multi"):
 
@@ -32,16 +33,27 @@ class CSmartML:
 		# Set algorithms and cvi by prescribed or meta-learning
 		if meta_cvi:
 			self.algorithm = Algorithm(filename, "distance", dataset).search()
+			# self.algorithm = "birch"
 			publish({
 				"label": "Getting recommended metrics...",
 				"algorithm": self.resolve_abbr()}, "message")
 			self.cvi = Meta_CVI(filename, "distance", dataset).search(self.algorithm)
+			# self.cvi = [['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]
 			publish({
 				"label": "Generating hyper-partitions...",
 				"metric": self.resolve_metrics()}, "message")
 		else:
 			self.algorithm = algorithm
 			self.cvi = cvi
+
+		# self.algorithm = "birch"
+		# publish({
+		# 	"label": "Getting recommended metrics...",
+		# 	"algorithm": self.resolve_abbr()}, "message")
+		# self.cvi = [['i_index', 1], ['modified_hubert_t', 1], ['banfeld_raferty', -1]]
+		# publish({
+		# 	"label": "Generating hyper-partitions...",
+		# 	"metric": self.resolve_metrics()}, "message")
 
 		# Creator: Assign Fitness Function (eg. multi-objective)
 		fitness_weights = (np.float(self.cvi[0][1]), np.float(self.cvi[1][1]), np.float(self.cvi[2][1]))
@@ -77,6 +89,25 @@ class CSmartML:
 			self.toolbox[p_id] = toolbox
 			self.partitions[p_id] = partition
 			partition_id += 1
+
+		global gPartition
+		partition = {}
+		for k, v in self.partitions.items():
+			value = None
+			if len(v) > 1:
+				value = "_&_".join(v)
+			else:
+				value = v[0]
+
+			partition[k] = value
+
+
+		gPartition = partition
+		print(gPartition)
+
+		publish({
+			"label": "Setting hyper-partitions...",
+			"partitions": self.resolve_partitions()}, "message")
 
 		# EA parameter initialization
 		self.pop_size = population
@@ -115,7 +146,15 @@ class CSmartML:
 		for metric in self.cvi:
 			cvi.append(metric[0].upper().replace("_", "-"))
 
-		return " & ".join(cvi)
+		return [" & ".join(cvi), self.cvi]
+
+	def resolve_partitions(self):
+		partitions = []
+		for partition in self.partitions.values():
+			part_formatted = "_&_".join(partition)
+			partitions.append(part_formatted)
+
+		return partitions
 
 	# Main Hyper-parameter search function
 	# Assign EA or Random Search for hyper-partitions
@@ -186,6 +225,7 @@ class CSmartML:
 			metric_values = validate.run_list([self.cvi[0][0], self.cvi[1][0], self.cvi[2][0]])
 			return metric_values[self.cvi[0][0]], metric_values[self.cvi[1][0]], metric_values[self.cvi[2][0]]
 		except Exception as e:
+			print(e)
 			return 0, 0, 0
 
 	# Evaluate individual fitness: pareto front & rank
@@ -233,13 +273,29 @@ def random_search(pid, t, s, population, toolbox, publish, res):
 		invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
 		fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)
 
+		# Temp variables to update Frontend
+		trial_log = list()
+		label = gPartition[pid]
+		print("RS-PID: ", pid)
+
 		for ind, fit in zip(invalid_ind, fitnesses):
 			ind.fitness.values = fit
 
+			# Tuned parameter value, fitness value, current generation
+			try:
+				parameter_value = eval(str(ind[0]) + "." + label)
+			except:
+				parameter_value = 0
+
+			if fit != (0, 0, 0):
+				trial_log.append([parameter_value, fit, ngen])
+
+		print(trial_log)
+		publish({"partition_live": [label, trial_log]}, "message")
 		# Replace the current population by the offspring
 		population[:] = offspring
 
-		ngen +=1
+		ngen += 1
 
 	res.update({pid: population})
 
@@ -273,8 +329,22 @@ def ea_custom(pid, t, population, toolbox, cxpb, mutpb, publish, res):
 		invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
 		fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)
 
+		# Temp variables to update Frontend
+		trial_log = list()
+		label = gPartition[pid]
+		print("EA-PID: ", pid)
+		print("EA Label: ", label)
+
 		for ind, fit in zip(invalid_ind, fitnesses):
 			ind.fitness.values = fit
+
+			# Tuned parameter value, fitness value, current generation
+			# print(eval(str(ind[0]) + "." + label))
+			if fit != (0, 0, 0):
+				trial_log.append([0, fit, ngen])
+
+		print(trial_log)
+		publish({"partition_live": [label, trial_log]}, "message")
 
 		# Replace the current population by the offspring
 		# population[:] = offspring

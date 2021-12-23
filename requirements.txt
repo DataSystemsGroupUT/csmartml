@@ -1,0 +1,58 @@
+boto3==1.13.26
+botocore==1.16.26
+certifi==2021.5.30
+chardet==3.0.4
+click==8.0.1
+dataclasses==0.8
+deap==1.3.1
+decorator @ file:///tmp/build/80754af9/decorator_1621259047763/work
+docutils==0.15.2
+entrypoints==0.3
+Flask==1.1.2
+Flask-Cors==3.0.9
+Flask-SSE==1.0.0
+idna==2.10
+importlib-metadata==4.8.1
+ipykernel @ file:///tmp/build/80754af9/ipykernel_1596206602906/work/dist/ipykernel-5.3.4-py3-none-any.whl
+ipython==5.8.0
+ipython-genutils @ file:///tmp/build/80754af9/ipython_genutils_1606773439826/work
+itsdangerous==2.0.1
+Jinja2==3.0.1
+jmespath==0.10.0
+joblib==1.0.1
+jupyter-client @ file:///tmp/build/80754af9/jupyter_client_1630690655192/work
+jupyter-core @ file:///tmp/build/80754af9/jupyter_core_1612213308682/work
+liac-arff==2.5.0
+MarkupSafe==2.0.1
+nest-asyncio @ file:///tmp/build/80754af9/nest-asyncio_1613680548246/work
+numpy==1.19.0
+openml==0.10.2
+pandas==1.1.5
+pexpect @ file:///tmp/build/80754af9/pexpect_1605563209008/work
+pickleshare @ file:///tmp/build/80754af9/pickleshare_1606932040724/work
+prompt-toolkit==1.0.15
+psutil==5.7.0
+ptyprocess @ file:///tmp/build/80754af9/ptyprocess_1609355006118/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl
+Pygments @ file:///tmp/build/80754af9/pygments_1629234116488/work
+python-dateutil==2.8.1
+pytz==2021.1
+pyzmq @ file:///tmp/build/80754af9/pyzmq_1628268400816/work
+redis==3.5.3
+requests==2.23.0
+ruamel.yaml==0.16.10
+ruamel.yaml.clib==0.2.0
+s-dbw==0.4.0
+s3transfer==0.3.3
+scikit-learn==0.24.2
+scipy==1.5.4
+simplegeneric==0.8.1
+six @ file:///tmp/build/80754af9/six_1623709665295/work
+threadpoolctl==2.1.0
+tornado @ file:///tmp/build/80754af9/tornado_1606942266872/work
+traitlets==4.3.3
+typing-extensions==3.10.0.2
+urllib3==1.25.9
+wcwidth @ file:///Users/ktietz/demo/mc3/conda-bld/wcwidth_1629357192024/work
+Werkzeug==2.0.1
+xmltodict==0.12.0
+zipp==3.5.0

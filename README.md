@@ -1,24 +1,25 @@
 # cSmartML
 cSmartML is an automated clustering tool that uses meta-learning and evolutionary algorithms to find the best configurations for clustering a given dataset. Currently limited to numerical datasets, it works for all eight clustering algorithms available on [SKlearn](https://scikit-learn.org/stable/modules/clustering.html) and uses parallelization and tools from [DEAP](https://deap.readthedocs.io/en/master/index.html) to return the list of top configurations found. Evaluation metrics are multi-objective and the best configurations selected with the NSGA-II pareto scheme.
 
-![Demo](https://github.com/rgb-cymk-hsla/csmartml/blob/main/img/cSmartML.png?raw=true)
+![Demo](https://github.com/DataSystemsGroupUT/CSmartML/blob/master/img/cSmartML.png?raw=true)
 
 # Setup
 
 ## Download cSmartML
 ```
-git clone https://github.com/rgb-cymk-hsla/csmartml.git
+git clone https://github.com/DataSystemsGroupUT/CSmartML.git
 ```
 
-Install dependencies [here](https://github.com/rgb-cymk-hsla/csmartml/blob/main/server/dependencies.txt) and start the two servers:
+To start the two servers:
 
-## (1) Python Flask Server:
+## (1) Flask Server:
 ```
 (Navigate to /server/)
 python sse.py
 ```
 
-## (2) (Web Interface) NodeJS Server:
+## (2) NodeJS Server:
+
 
 ```
 (Navigate to /interface/)
