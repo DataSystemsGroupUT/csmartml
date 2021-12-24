@@ -9,14 +9,15 @@ cSmartML is an automated clustering tool that uses meta-learning and evolutionar
 ```
 git clone https://github.com/DataSystemsGroupUT/CSmartML.git
 ```
-## environment
+## Environment
 
 Based on ```python 3.6``` create an environemt and then install all requirments:
 
-To start the two servers:
 ```
 pip install -r requirements.txt
 ```
+
+To start the two servers:
 ## (1) Flask Server:
 ```
 (Navigate to /server/)
@@ -24,7 +25,6 @@ python sse.py
 ```
 
 ## (2) NodeJS Server:
-
 
 ```
 (Navigate to /interface/)
