@@ -35,7 +35,7 @@ class MetaLearning extends React.Component<MetaLearningProps, MetaLearningState>
     constructor(props: MetaLearningProps) {
         super(props);
         this.state = {
-            options: [{label: 'Algorithm & CVI Selection', value: "meta"}, {label: 'No meta-learning', value: "no-meta"}],
+            options: [{label: ' KNN Algorithm & CVI Selection', value: "meta"}, {label: "NMF Meta-Learning", value:"nmf"}, {label: 'No meta-learning', value: "no-meta"}],
             evaluation_types: EVALUATION_TYPES,
             single_metric_list: SINGLE_METRICS,
             multi_metric_list: MULTI_OBJ_METRICS,
