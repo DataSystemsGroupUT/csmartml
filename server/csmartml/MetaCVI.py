@@ -1,15 +1,11 @@
+import pandas as pd
+from scipy.spatial.distance import cdist
+import csv
+import numpy as np
+from .metafeatures import Meta
 import sys
 sys.path.append('../')
-from .metafeatures import Meta
 
-import pandas as pd 
-import numpy as np
-import csv
-from ast import literal_eval
-from sklearn.preprocessing import MultiLabelBinarizer
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-from scipy.spatial.distance import cdist
 
 class Meta_CVI:
 
@@ -63,7 +59,7 @@ class Meta_CVI:
 
         return [[cvi1, eval_labels[cvi1]], [cvi2, eval_labels[cvi2]], [cvi3, eval_labels[cvi3]]]
 
-    def search(self, algorithm ="kmeans"):
+    def search(self, algorithm="kmeans"):
 
         # 1 - Get other metafeatures from knowledge-base & their CVI combinations
         df_meta_db = pd.read_csv("./csmartml/metafeatures.csv")
@@ -79,19 +75,23 @@ class Meta_CVI:
         filename = "multi_" + algorithm
         combinations = []
         with open('./csmartml/new-pareto/' + filename + '.tsv') as tsvfile:
-            reader = csv.DictReader(tsvfile, delimiter='\t', fieldnames=['dataset', 'cvi', 'nmi'])
+            reader = csv.DictReader(tsvfile, delimiter='\t', fieldnames=[
+                                    'dataset', 'cvi', 'nmi'])
             for row in reader:
                 combinations.append(row)
 
         df_combinations = pd.DataFrame(combinations)
         df_combinations['nmi'] = df_combinations['nmi'].apply(pd.np.float64)
-        df_combinations['rank'] = df_combinations.groupby('dataset')['nmi'].rank(ascending=False, axis=0)
-        df_combinations = df_combinations.groupby('dataset').apply(lambda x: x.sort_values(['cvi']))
+        df_combinations['rank'] = df_combinations.groupby(
+            'dataset')['nmi'].rank(ascending=False, axis=0)
+        df_combinations = df_combinations.groupby(
+            'dataset').apply(lambda x: x.sort_values(['cvi']))
 
         # 3 - Compute Euclidean distance between instance and other metafeatures
         df_meta_db_val = df_meta_db.loc[:, df_meta_db.columns != 'dataset']
-        distance_matrix = cdist(df_meta_db_val, df_meta_db_val, metric = 'euclidean')
-        
+        distance_matrix = cdist(
+            df_meta_db_val, df_meta_db_val, metric='euclidean')
+
         instance_index = len(df_meta_db) - 1
         distances = np.trim_zeros(distance_matrix[instance_index])
         distances_sm = np.sort(distances)[0:5]
@@ -102,11 +102,13 @@ class Meta_CVI:
         for dist in distances_sm:
             index = np.where(distances == dist)
             ds = str(df_meta_db.iloc[index].dataset.values[0])
-            all_rank.append(df_combinations.loc[df_combinations['dataset'] == (ds)]['rank'].values)
+            all_rank.append(
+                df_combinations.loc[df_combinations['dataset'] == (ds)]['rank'].values)
 
             if len(all_cvis) == 0:
-                all_cvis = df_combinations.loc[df_combinations['dataset'] == (ds)]['cvi'].values
-        
+                all_cvis = df_combinations.loc[df_combinations['dataset'] == (
+                    ds)]['cvi'].values
+
         # 5 - Select and return best CVI combination by NMI Scores
         values = []
         for rn in all_rank:
@@ -115,7 +117,8 @@ class Meta_CVI:
 
         if len(values) > 0:
             fn_rank = np.mean(values, axis=0)       # Merged final rankings
-            top_rank_index = np.min(fn_rank)        # Get highest ranked CVI combo
+            # Get highest ranked CVI combo
+            top_rank_index = np.min(fn_rank)
             fn_cvi = all_cvis[np.where(fn_rank == top_rank_index)][0]
             return self.format_cvi(fn_cvi)
         else:
