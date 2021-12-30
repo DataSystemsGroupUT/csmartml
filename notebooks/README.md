@@ -5,11 +5,13 @@ provide a data preprocessing pipeline for unsupervised clustering leveraging met
 
 <br>
 <br>
+
 ### Resources
 There are two notebook files and a meta_data.csv in this repository. 
 Notebook 1 contains the code for meta space creation. Meta space is the meta data or the knowledge base on which the experiment was performed. Notebook 2 holds code for the analysis. Each of the notebook has comments to describe the code. After creating datasets for each clustering algorithm, all of the datasets are concatenated and meta_data.csv was created which was later used to suggest the pipeline. 
 <br>
 <br>
+
 ### Methodology
 At first we cluster the original data using three clusterring algorithm, KMeans, Agglomerative, and Birch. So each dataset is clustered three times with a set of hyper parameters and the Multi CVI for each of those clusters are recorded. Then we perform the transformations on each of the datasets and repeat the process again which creates more data. Each time a row of data is generated with the meta features of the specific dataset, the algorithm and hyper parameter setting, and the multi CVI correlation score. The transformations/ data preprocessing techniques are performed once on the dataset and the multi CVI score is calculated. Then a combination of two transformations are performed on the dataset and the same process if performed again. Which gives us more data for the knowledge space. Later perforrm analysis to check if preprocesssing led to better clustering result based on the multi CVI score. And given a new dataset, we caluclate the nearest neighbor based on the meta data, and the pipeline that gve the best ressult based on the multi  CVI score is suggested as the best performing pipeline. The bigger and wider the knowledge space is, the accurate the suggestion would be. <br><br>
 
