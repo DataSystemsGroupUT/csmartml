@@ -2,7 +2,7 @@ import pandas as pd
 from scipy.spatial.distance import cdist
 import csv
 import numpy as np
-from .metafeatures import Meta
+from .meta_features import Meta
 import sys
 sys.path.append('../')
 

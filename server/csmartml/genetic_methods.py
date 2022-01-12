@@ -1,7 +1,7 @@
 import copy
 import random
 
-from .Algorithms import *
+from .algorithms import *
 
 
 class GeneticMethods:

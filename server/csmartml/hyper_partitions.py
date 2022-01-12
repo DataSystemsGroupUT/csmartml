@@ -1,5 +1,5 @@
 import random
-from .GeneticMethods import GeneticMethods as GM
+from .genetic_methods import GeneticMethods as GM
 from sklearn.cluster import KMeans, MeanShift, DBSCAN, \
     AffinityPropagation, SpectralClustering, AgglomerativeClustering, \
     OPTICS, Birch

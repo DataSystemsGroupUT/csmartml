@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import csv
 import random
-from .metafeatures import Meta
+from .meta_features import Meta
 from scipy.spatial.distance import cdist
 
 

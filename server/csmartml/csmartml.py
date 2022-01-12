@@ -1,19 +1,14 @@
 import pandas as pd
 import numpy as np
 import time
-import sys
 import multiprocessing
-
-from .MetaCVI import Meta_CVI
-from .MetaAlgorithm import Algorithm
+from .meta_CVI import Meta_CVI
+from .meta_algorithm import Algorithm
 from .cvi import Validation
 from multiprocessing import Process
-
-from sklearn import metrics
 from deap import base, creator, tools, algorithms
-
-from .HyperPartitions import *
-from .GeneticMethods import *
+from .hyper_partitions import *
+from .genetic_methods import *
 
 
 class CSmartML:

@@ -25,7 +25,6 @@ import re
 import warnings
 from sklearn import metrics
 from s_dbw import S_Dbw
-from .sdbw import sdbw
 
 
 class Validation:
