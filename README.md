@@ -20,6 +20,14 @@ Based on ```python 3.6``` create an environemt and then install all requirments:
 pip install -r requirements.txt
 ```
 
+## Check dependencies
+
+make sure all dependencies are installed! Also, make sure that ```redis server``` is run in background:
+
+```bash
+sudo systemctl status redis
+```
+
 To start the two servers:
 
 ## (1) Flask Server
