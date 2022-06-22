@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import csv
 import random
-from .metafeatures import Meta
+from .meta_features import Meta
 from scipy.spatial.distance import cdist
 
 
@@ -33,19 +33,23 @@ class Algorithm:
         filename = "multi_" + algorithm
         combinations = []
         with open('./csmartml/new-pareto/' + filename + '.tsv') as tsvfile:
-            reader = csv.DictReader(tsvfile, delimiter='\t', fieldnames=['dataset', 'cvi', 'nmi'])
+            reader = csv.DictReader(tsvfile, delimiter='\t', fieldnames=[
+                                    'dataset', 'cvi', 'nmi'])
             for row in reader:
                 combinations.append(row)
 
         df_algorithms = pd.read_csv("./csmartml/algorithms.csv")
         df_algorithms['nmi'] = df_algorithms['nmi'].apply(pd.np.float64)
-        df_algorithms['rank'] = df_algorithms.groupby('dataset')['nmi'].rank(ascending=False, axis=0, method='min')
-        df_algorithms = df_algorithms.groupby('dataset').apply(lambda x: x.sort_values(['algorithm']))
+        df_algorithms['rank'] = df_algorithms.groupby(
+            'dataset')['nmi'].rank(ascending=False, axis=0, method='min')
+        df_algorithms = df_algorithms.groupby('dataset').apply(
+            lambda x: x.sort_values(['algorithm']))
 
         # Compute Euclidean distance between instance and other metafeatures
         df_meta_db_val = df_meta_db.loc[:, df_meta_db.columns != 'dataset']
-        distance_matrix = cdist(df_meta_db_val, df_meta_db_val, metric='euclidean')
-        
+        distance_matrix = cdist(
+            df_meta_db_val, df_meta_db_val, metric='euclidean')
+
         instance_index = len(df_meta_db) - 1
         distances = np.trim_zeros(distance_matrix[instance_index])
         distances_sm = np.sort(distances)[0:5]
@@ -56,10 +60,12 @@ class Algorithm:
         for dist in distances_sm:
             index = np.where(distances == dist)
             ds = str(df_meta_db.iloc[index].dataset.values[0])
-            all_rank.append(df_algorithms.loc[df_algorithms['dataset'] == (ds)]['rank'].values)
+            all_rank.append(
+                df_algorithms.loc[df_algorithms['dataset'] == (ds)]['rank'].values)
 
             if len(ls_algorithms) == 0:
-                ls_algorithms = df_algorithms.loc[df_algorithms['dataset'] == (ds)]['algorithm'].values
+                ls_algorithms = df_algorithms.loc[df_algorithms['dataset'] == (
+                    ds)]['algorithm'].values
 
         # Select and return best CVI combination by NMI Scores
         values = []
@@ -69,13 +75,16 @@ class Algorithm:
 
         if len(values) > 0:
             fn_rank = np.mean(values, axis=0)       # Merged final rankings
-            top_rank_index = np.min(fn_rank)        # Get highest ranked CVI combo
-            ls_sel_algorithms = ls_algorithms[np.where(fn_rank == top_rank_index)]
-            
-            if len(ls_sel_algorithms) > 1 :
+            # Get highest ranked CVI combo
+            top_rank_index = np.min(fn_rank)
+            ls_sel_algorithms = ls_algorithms[np.where(
+                fn_rank == top_rank_index)]
+
+            if len(ls_sel_algorithms) > 1:
                 return random.choice(ls_sel_algorithms)
-            else :
+            else:
                 return ls_sel_algorithms[0]
         else:
-            ls_rand_algorithms = ['kmeans', 'ag', 'birch', 'spectral', 'meanshift']
+            ls_rand_algorithms = ['kmeans', 'ag',
+                                  'birch', 'spectral', 'meanshift']
             return random.choice(ls_rand_algorithms)

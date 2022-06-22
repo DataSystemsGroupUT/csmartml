@@ -25,7 +25,6 @@ import re
 import warnings
 from sklearn import metrics
 from s_dbw import S_Dbw
-from .sdbw import sdbw
 
 
 class Validation:
@@ -63,7 +62,8 @@ class Validation:
         """
         self.validation_metrics_available() returns a dictionary, whose keys are the available validation metrics
         """
-        methods = [method for method in dir(self) if callable(getattr(self, method))]
+        methods = [method for method in dir(
+            self) if callable(getattr(self, method))]
         methods.remove('validation_metrics_available')
         method_dict = {}
         for method in methods:
@@ -126,7 +126,8 @@ class Validation:
                     # warnings.warn('Cannot calculate Banfeld_Raferty, due to an undefined value', UserWarning)
                     continue
                 else:
-                    sum_total += len(indices) * math.log(sum_dis / len(indices))
+                    sum_total += len(indices) * \
+                        math.log(sum_dis / len(indices))
 
                 # return the fitness
                 self.validation = sum_total
@@ -142,12 +143,14 @@ class Validation:
         """
         self.description = 'Silhouette: A combination of connectedness and compactness that measures within versus to the nearest neighbor outside a cluster. A smaller value, the better the solution'
 
-        metric = metrics.silhouette_score(self.data_matrix, self.class_label, metric='euclidean')
+        metric = metrics.silhouette_score(
+            self.data_matrix, self.class_label, metric='euclidean')
         self.validation = metric
         return self.validation
 
     def calinski_harabasz(self):
-        self.validation = metrics.calinski_harabasz_score(self.data_matrix, self.class_label)
+        self.validation = metrics.calinski_harabasz_score(
+            self.data_matrix, self.class_label)
         return self.validation
 
     def baker_hubert_gamma(self):
@@ -326,10 +329,12 @@ class Validation:
             # compute the center of the cluster
             clusterCenter = np.mean(clusterMember, 0)
             # add to bgss
-            bgss += len(indices) * math.pow(distance.euclidean(clusterCenter, dataCenter), 2)
+            bgss += len(indices) * \
+                math.pow(distance.euclidean(clusterCenter, dataCenter), 2)
             # iterate through all the members of the cluster
             for member in clusterMember:
-                sumTemp += math.pow(distance.euclidean(member, clusterCenter), 2)
+                sumTemp += math.pow(distance.euclidean(member,
+                                    clusterCenter), 2)
             wgss += sumTemp
         # compute the fitness
         self.validation = math.log(bgss / wgss)
@@ -357,7 +362,8 @@ class Validation:
             # iterate the clusters again for between-cluster distance
             for j in range(numCluster):
                 if j > i:
-                    indices2 = [t for t, x in enumerate(self.class_label) if x == j]
+                    indices2 = [t for t, x in enumerate(
+                        self.class_label) if x == j]
                     clusterMember2 = self.data_matrix[indices2, :]
                     betweenDis = distance.cdist(clusterMember, clusterMember2)
                     # add to sb
@@ -386,7 +392,8 @@ class Validation:
             # compute the center of the cluster
             clusterCenter = np.mean(clusterMember, 0)
             # compute the center distance
-            list_centerDis.append(distance.euclidean(dataCenter, clusterCenter))
+            list_centerDis.append(
+                distance.euclidean(dataCenter, clusterCenter))
             # iterate through the member of the  cluster
             for member in clusterMember:
                 ew += distance.euclidean(member, clusterCenter)
@@ -419,7 +426,8 @@ class Validation:
             # iterate the clusters again for between-cluster distance
             for j in range(numCluster):
                 if j > i:
-                    indices2 = [t for t, x in enumerate(self.class_label) if x == j]
+                    indices2 = [t for t, x in enumerate(
+                        self.class_label) if x == j]
                     clusterMember2 = self.data_matrix[indices2, :]
                     betweenDis = distance.cdist(clusterMember, clusterMember2)
                     # add to sb
@@ -449,7 +457,8 @@ class Validation:
                 indices = [t for t, x in enumerate(self.class_label) if x == j]
                 columnCluster = self.data_matrix[indices, :]
                 centerCluster = np.mean(columnCluster)
-                bgssj += len(indices) * math.pow(centerCluster - columnCenter, 2)
+                bgssj += len(indices) * \
+                    math.pow(centerCluster - columnCenter, 2)
             # iterate through the  members of the column
             for member in columnVec:
                 tssj += math.pow(member - columnCenter, 2)
@@ -515,7 +524,8 @@ class Validation:
             if np.linalg.det(wgk / nk) != 0:
                 fitness += nk * math.log(np.linalg.det(wgk / nk))
             else:
-                warnings.warn('Cannot calculate Scott_Symons, due to an undefined value', UserWarning)
+                warnings.warn(
+                    'Cannot calculate Scott_Symons, due to an undefined value', UserWarning)
         # return fitness
         self.validation = fitness
         return self.validation
@@ -561,7 +571,8 @@ class Validation:
                     if pairDis[j] > vecB[i]:
                         sminus += 1
         # compute the fitness
-        self.validation = (splus - sminus) / math.sqrt(nb * nw * nt * (nt - 1) / 2)
+        self.validation = (splus - sminus) / \
+            math.sqrt(nb * nw * nt * (nt - 1) / 2)
         return self.validation
 
     def trace_w(self):
@@ -621,7 +632,8 @@ class Validation:
         except np.linalg.linalg.LinAlgError:
             # Numpy will thrown an exception on singular matricies
             # If this happens, warn the user and return 0
-            warnings.warn('Cannot calculate trace_wib, due to an undefined value', UserWarning)
+            warnings.warn(
+                'Cannot calculate trace_wib, due to an undefined value', UserWarning)
             self.validation = 0
         return self.validation
 
@@ -657,7 +669,8 @@ class Validation:
                 memberArray[0, :] = member
                 # compute the pair wise distance
                 list_dis = distance.cdist(memberArray, tempList)
-                sumRm += (distance.euclidean(member, clusterCenter)) / min(min(list_dis))
+                sumRm += (distance.euclidean(member, clusterCenter)
+                          ) / min(min(list_dis))
             # compute the sum
             sum += max([0, len(indices) - sumRm])
         # compute the fitness
@@ -733,9 +746,11 @@ class Validation:
                 label1 = self.class_label[i]
                 label2 = self.class_label[j]
                 # compute the distance of the two objects
-                pairDistance = distance.euclidean(self.data_matrix[i], self.data_matrix[j])
+                pairDistance = distance.euclidean(
+                    self.data_matrix[i], self.data_matrix[j])
                 # compute the distance of the cluster center of the two objects
-                centerDistance = distance.euclidean(list_center[label1], list_center[label2])
+                centerDistance = distance.euclidean(
+                    list_center[label1], list_center[label2])
                 # add the product to the sum
                 sumDiff += pairDistance * centerDistance
         # compute the fitness
@@ -770,7 +785,8 @@ class Validation:
         list_centers = np.concatenate(list_centers, axis=0)
         maxCenterDis = max(distance.pdist(list_centers))
         # compute the fitness
-        self.validation = math.pow(((normDatasetSum * maxCenterDis) / (normClusterSum * numCluster)), attributes)
+        self.validation = math.pow(
+            ((normDatasetSum * maxCenterDis) / (normClusterSum * numCluster)), attributes)
         return self.validation
 
     def davies_bouldin(self):
@@ -795,7 +811,8 @@ class Validation:
             for j in range(numCluster):
                 if j != i:
                     # get all members from cluster j
-                    indices2 = [t for t, x in enumerate(self.class_label) if x == j]
+                    indices2 = [t for t, x in enumerate(
+                        self.class_label) if x == j]
                     clusterMember2 = self.data_matrix[indices2, :]
                     # compute the cluster center
                     clusterCenter2 = np.mean(clusterMember2, 0)
@@ -829,14 +846,15 @@ class Validation:
             list_centers.append(np.asarray(clusterCenter))
             # interate through each member of the cluster
             for member in clusterMember:
-                sumNorm += math.pow(distance.euclidean(member, clusterCenter), 2)
+                sumNorm += math.pow(distance.euclidean(member,
+                                    clusterCenter), 2)
         list_centers = np.concatenate(list_centers, axis=0)
         minDis = min(distance.pdist(list_centers))
         # compute the fitness
         self.validation = sumNorm / (numObject * pow(minDis, 2))
         return self.validation
 
-    ## density function for SDBW
+    # density function for SDBW
     @staticmethod
     def __density(a, b, stdev):
         dis = distance.euclidean(a, b)
@@ -846,14 +864,15 @@ class Validation:
             return 1
 
     # S_Dbw validity index SDBW
-    
+
     # def SDBW(self):
     #     sdbw_c = sdbw(self.data_raw, self.class_label, self.cluster_centers_)
     #     self.validation = sdbw_c.sdbw_score()
     #     return self.validation
 
     def s_dbw(self):
-        score = S_Dbw(np.asarray(self.data_raw), self.class_label, centers_id=None, method='Halkidi', alg_noise='bind',centr='mean', nearest_centr=True, metric='euclidean')
+        score = S_Dbw(np.asarray(self.data_raw), self.class_label, centers_id=None, method='Halkidi',
+                      alg_noise='bind', centr='mean', nearest_centr=True, metric='euclidean')
         self.validation = score
         return self.validation
     '''
@@ -924,7 +943,6 @@ class Validation:
         self.validation = scat + dens_bw
         return self.validation
     '''
-    
 
     def dunns_index(self):
         """
@@ -943,13 +961,15 @@ class Validation:
             list_diam.append(max(distance.pdist(clusterMember1)))
             for j in range(i + 1, numCluster):
                 # get all members from cluster j
-                indices2 = [t for t, x in enumerate(self.class_label) if x == j]
+                indices2 = [t for t, x in enumerate(
+                    self.class_label) if x == j]
                 clusterMember2 = self.data_matrix[indices2, :]
                 # compute the diameter of the cluster
                 diameter = distance.pdist(clusterMember2)
                 # If it is zero, the value is undefined
                 if len(diameter) == 0:
-                    warnings.warn('Cannot calculate Dunns_index, due to an undefined value', UserWarning)
+                    warnings.warn(
+                        'Cannot calculate Dunns_index, due to an undefined value', UserWarning)
                     self.validation = 0
                     return self.validation
                 list_diam.append(max(diameter))
